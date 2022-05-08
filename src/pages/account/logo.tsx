@@ -15,8 +15,6 @@ const Logo: FC = (): ReactElement => {
         <Lottie options={defaultOptions}
             height={500}
             width={500}
-        // isStopped={this.state.isStopped}
-        // isPaused={this.state.isPaused} 
         />
     )
 }

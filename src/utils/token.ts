@@ -5,5 +5,6 @@ export const setToken = (token: string): void => {
     localStorage.setItem("cxsj_token", token);
 };
 export const delToken = (): void => {
-    localStorage.removeItem("cxsj_token");
+    if (getToken())
+        localStorage.removeItem("cxsj_token");
 };
