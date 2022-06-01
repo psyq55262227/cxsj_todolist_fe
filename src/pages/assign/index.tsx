@@ -1,8 +1,10 @@
 import { apiPOST } from "@/api";
+import socket from "@/model/socket";
 import { timeFormatter } from "@/utils/tool";
-import { FC, ReactElement, useReducer, useState } from "react"
+import { FC, ReactElement, useEffect, useReducer, useState } from "react"
 import { Button, } from "semantic-ui-react";
 import swal from "sweetalert";
+import AssignedList from "./assignedList";
 import PublishList from "./publishList";
 import SearchUser from "./searchUser";
 import Task from "./task";
@@ -38,22 +40,24 @@ const Assign: FC = (): ReactElement => {
     }
   }, [])
   const handleAssign = async () => {
+    if (task === '' || user === '') return swal('请补充完整todo内容')
     const payload: IPublishItem = {
       id: new Date().getTime(), content: task, isCompleted: false, assignedPhone: user,
     };
     try {
       const { data: { message } } = await apiPOST('/todo', payload)
-      swal({
-        title: '指派成功',
-        icon: 'success'
-      })
       dispatch({ type: IPublishAction.ADD, payload: { ...payload, created_at: timeFormatter(new Date()) } })
+      handleRealTimeDisplay(task, user)
     } catch (e) {
       console.log(e);
     }
   }
-
-
+  const handleRealTimeDisplay = (content: string, phone: string) => {
+    socket.emit('submitTask', {
+      content,
+      to: phone
+    })
+  }
   return (
     <>
       <section className="p-4 grid grid-cols-[auto,1fr,auto] gap-2">
@@ -64,6 +68,7 @@ const Assign: FC = (): ReactElement => {
         <Button color="yellow" className="row-start-2" onClick={() => handleAssign()}>指派</Button>
       </section>
       <PublishList publishList={publishList} dispatch={dispatch} />
+      <AssignedList />
     </>
   )
 }

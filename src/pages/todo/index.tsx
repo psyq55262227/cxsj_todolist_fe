@@ -32,10 +32,10 @@ const Todo: FC = (): ReactElement => {
   const handleAddTodo = async ({ content, completed, id }: ITodo) => {
     try {
       const { data: { message } } = await apiPOST('/todo', { id, content, isCompleted: completed });
-      swal({
-        title: message,
-        icon: 'success'
-      })
+      // swal({
+      //   title: message,
+      //   icon: 'success'
+      // })
     } catch (e) {
       console.log(e)
     }
@@ -43,10 +43,10 @@ const Todo: FC = (): ReactElement => {
   const handleDeleteTodo = async (id: number) => {
     try {
       const { data: { message } } = await apiDELETE(`/todo/${id}`);
-      swal({
-        title: message,
-        icon: 'success'
-      })
+      // swal({
+      //   title: message,
+      //   icon: 'success'
+      // })
     } catch (e) {
       console.log(e)
     }
@@ -55,10 +55,10 @@ const Todo: FC = (): ReactElement => {
     try {
       const { id, content, completed: isCompleted } = data;
       const { data: { message } } = await apiPUT(`/todo`, { id, content, isCompleted });
-      swal({
-        title: message,
-        icon: 'success'
-      })
+      // swal({
+      //   title: message,
+      //   icon: 'success'
+      // })
     } catch (e) {
       console.log(e)
     }

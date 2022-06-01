@@ -33,10 +33,10 @@ const PublishList: FC<IProps> = ({ publishList, dispatch }): ReactElement => {
     setOpen(false)
     try {
       const { data: { message } } = await apiDELETE(`/todo/${checkedId}`);
-      swal({
-        title: message,
-        icon: 'success'
-      })
+      // swal({
+      //   title: message,
+      //   icon: 'success'
+      // })
       dispatch({ type: IPublishAction.DELETE, payload: { id: checkedId } })
     } catch (e) {
       swal({

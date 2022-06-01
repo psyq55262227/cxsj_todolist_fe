@@ -23,17 +23,18 @@ const TodoItem: FC<IProps> = ({ todoItem, handleDeleteItem, handleEditItem }): R
   }
   return (
     <>
-      <section className={`break-all grid grid-cols-[1fr,auto,auto,auto] items-center gap-2 bg-yellow-500/20 rounded-md p-2 px-4 cursor-pointer`}>
+      <section className={`break-all grid grid-cols-[auto,1fr,auto,auto] items-center gap-2 bg-yellow-500/20 rounded-md p-2 px-4 cursor-pointer`}>
+        <Checkbox
+          onChange={() => handleEditItem({ ...todoItem, completed: !todoItem.completed, editTime: new Date().getTime() })}
+          checked={todoItem.completed}
+        />
         <span
           className={`${todoItem.completed ? 'line-through' : ''} outline-none`}
           onClick={() => setIsCheck(true)}
         >{todoItem.content}</span>
         <Button color="red" size="mini" onClick={() => setIsDelete(true)}>删除</Button>
         <Button color="yellow" size="mini" onClick={() => setIsEdit(true)}>修改</Button>
-        <Checkbox
-          onChange={() => handleEditItem({ ...todoItem, completed: !todoItem.completed, editTime: new Date().getTime() })}
-          checked={todoItem.completed}
-        />
+
       </section >
       <Modal
         dimmer="blurring"

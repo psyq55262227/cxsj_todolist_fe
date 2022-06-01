@@ -1,7 +1,8 @@
 import { delToken } from "@/utils/token";
 import { FC, ReactElement } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Icon, SemanticICONS } from "semantic-ui-react";
+import { Button, Dropdown, DropdownHeader, DropdownItem, DropdownMenu, Icon, Menu, MenuItem, SemanticICONS } from "semantic-ui-react";
+import Notify from "./notify";
 
 const Header: FC = (): ReactElement => {
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ const Header: FC = (): ReactElement => {
         path: '/center'
       },
     ];
+  const assignment = [
+    "任务1", "任务2"
+  ]
   const handleLogOut = () => {
     delToken();
     navigate('/account')
@@ -40,9 +44,14 @@ const Header: FC = (): ReactElement => {
           ))
         }
       </section>
-      <section className="text-gray-400 hover:text-gray-100 cursor-pointer transition" onClick={() => handleLogOut()}>
-        <Icon name="sign-out" />
-        <span>退出</span>
+      <section className="flex space-x-4">
+        <section className="text-gray-400 hover:text-gray-100 cursor-pointer transition">
+          <Notify />
+        </section>
+        <section className="text-gray-400 hover:text-gray-100 cursor-pointer transition" onClick={() => handleLogOut()}>
+          <Icon name="sign-out" />
+          <span>退出</span>
+        </section>
       </section>
     </section>
   )
